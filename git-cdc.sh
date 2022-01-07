@@ -15,11 +15,11 @@ if [[ -z "$commit" ]]; then
 fi
 
 git filter-branch --env-filter \
-    'if [ $GIT_COMMIT = "$commit" ]
-     then
-         export GIT_AUTHOR_DATE="$date_timestamp"
-         export GIT_COMMITTER_DATE="$date_timestamp"
-     fi'
+    # 'if [ $GIT_COMMIT = "$commit" ]
+    #  then
+         'export GIT_AUTHOR_DATE="$date_timestamp"
+         export GIT_COMMITTER_DATE="$date_timestamp"'
+    #  fi'
 
 # git checkout -b "$temp_branch" "$commit"
 # GIT_COMMITTER_DATE="$date_timestamp" GIT_AUTHOR_DATE="$date_timestamp" git commit --amend --no-edit --date "$date_r"
