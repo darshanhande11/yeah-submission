@@ -23,6 +23,6 @@ fi
 git filter-branch --env-filter \
     `if [ $GIT_COMMIT = $commit ]
      then
-         export GIT_AUTHOR_DATE="Fri Jan 2 21:38:53 2009 -0800"
+         export GIT_AUTHOR_DATE="$date_timestamp"
          export GIT_COMMITTER_DATE="$date_timestamp"
      fi`
