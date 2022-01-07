@@ -10,16 +10,16 @@ echo "this is local time" $localTime
 date_timestamp=$(date -d "$datecal $localTime" +%s)
 date_r=$(date -R -d "$datecal $localTime")
 
-if [[ -z "$commit" ]]; then
-    exit 0
-fi
+# if [[ -z "$commit" ]]; then
+#     exit 0
+# fi
 
 git filter-branch --env-filter \
-    # 'if [ $GIT_COMMIT = "$commit" ]
-    #  then
-         'export GIT_AUTHOR_DATE="$date_timestamp"
-         export GIT_COMMITTER_DATE="$date_timestamp"'
-    #  fi'
+    'if [ $GIT_COMMIT = "$commit" ]
+     then
+         export GIT_AUTHOR_DATE="$date_timestamp"
+         export GIT_COMMITTER_DATE="date_timestamp"
+     fi'
 
 # git checkout -b "$temp_branch" "$commit"
 # GIT_COMMITTER_DATE="$date_timestamp" GIT_AUTHOR_DATE="$date_timestamp" git commit --amend --no-edit --date "$date_r"
