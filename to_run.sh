@@ -26,7 +26,10 @@ for i in ${!arrayvar[@]}; do
     sec=$(( $RANDOM % 60 ))
     currentDate="2022-01-${day} ${hr}:${min}:${sec}"
     echo "this is commit ${arrayvar[$i]}"
-    sh ./git-cdc.sh ${arrayvar[$i]} ${currentDate}
+    # sh ./git-cdc.sh ${arrayvar[$i]} ${currentDate}
+     date_timestamp=$(date -d "$currentDate" +%s)
+     export GIT_AUTHOR_DATE="$date_timestamp"
+     export GIT_COMMITTER_DATE="$date_timestamp"
     echo "this is date------------------------------------------------------" ${currentDate}
     hr=$(( $hr + 1 ))
     if [ $hr -ge 23 ]; 
