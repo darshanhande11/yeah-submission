@@ -14,15 +14,19 @@ if [[ -z "$commit" ]]; then
     exit 0
 fi
 
+git filter-branch --env-filter \
+    'if [ $GIT_COMMIT = "$commit" ]
+     then
+         export GIT_AUTHOR_DATE="$date_timestamp"
+         export GIT_COMMITTER_DATE="$date_timestamp"
+     fi'
+
 # git checkout -b "$temp_branch" "$commit"
 # GIT_COMMITTER_DATE="$date_timestamp" GIT_AUTHOR_DATE="$date_timestamp" git commit --amend --no-edit --date "$date_r"
 # git checkout "$current_branch"
 # git rebase  --autostash --committer-date-is-author-date "$commit" --onto "$temp_branch"
 # git branch -d "$temp_branch"
 
-git filter-branch --env-filter \
-    `if [ $GIT_COMMIT = $commit ]
-     then
-         export GIT_AUTHOR_DATE="$date_timestamp"
-         export GIT_COMMITTER_DATE="$date_timestamp"
-     fi`
+# git filter-branch --env-filter \
+        #  export GIT_AUTHOR_DATE="$date_timestamp"
+        #  export GIT_COMMITTER_DATE="$date_timestamp"
